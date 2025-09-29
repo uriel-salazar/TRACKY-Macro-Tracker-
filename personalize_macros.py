@@ -50,15 +50,46 @@ def write(value,gre):
                   "Genre":[gre]
     })
         w_dat.to_csv("bmr_woman.csv",mode="a",index=False,header=not os.path.exists("bmr_woman.csv"))
-   
+
+
+def activity_level():
+    activity={
+        "sedentary": 1.2,
+        "light": 1.375,
+        "moderate": 1.55,
+        "very": 1.725,
+        "extra": 1.9
+    }
+    for i,each in enumerate(activity.keys(),start=1):
+        print(f'-{i} {each}')
+
+    type_act=input("What type of activty you are? (SELECT A NUMBER ) :")
+    print("Choose an opcion :")
+    print("""
+          1.Volumen
+          2.Cutting""")
+    ask=input("What are you going to choose??")
+    return type_act,activity,ask,
+
+
+def cutting(type_act,value,activity):
+    multiply=activity[type_act]
+    x=value
+    result=x*multiply
+    print(result)
+    
+    
+    
+      
 year,wg,h,gre=data()
 value=bmr(year,wg,h,gre)
 bmr(year,wg,h,gre)
 write(value,gre)
+activity_level()
+type_act,actvity=cutting(value)
+cutting(type_act)
  
 
-def cutting():
-        print
 
 
 
