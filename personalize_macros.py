@@ -20,10 +20,9 @@ def data():
                 gre=input("Are you a women or men ? (woman/man)").upper()
                 h=float(input(("What is your heigh??")))
                 name=input("What is your name?? (STRING) : ")
-                clear_console()
                 
                 print("--- Confirming your data ---")
-                check=print(f'''
+                print(f'''
                 Name={name}
                 Gender:{gre}
                 Years :{year} years old 
@@ -42,13 +41,20 @@ def data():
                 
 
           
-def bmr(year,wg,h,gre):
-    
-    if gre=="MAN":
-       value=10 *(wg) +6.25 *(h)-5*year+5
+def bmr(weight,height,group,birth):
+    # Ensure data types are correct
+    weight = float(weight)
+    height = float(height)
+    birth = int(birth)
+
+    if group.upper() == "MAN":
+        value = 10 * weight + 6.25 * height - 5 * birth + 5
     else:
-        value=10*(wg)+6.25*(h)-5*year-161
+        value = 10 * weight + 6.25 * height - 5 * birth - 161
+
+    print(f"\nYour BMR is: {value:.2f} kcal/day")
     return value
+
     
     #is going to return the bmr() from each user 
 
@@ -56,7 +62,7 @@ def bmr(year,wg,h,gre):
  
  
 def write(value,gre,name):
-    print("Your data has been saved succesfully!") 
+    print("Your data has been saved succesfully!")
     if  gre=="MAN":
         m_dat=pd.DataFrame({
                     "Name":[name],
@@ -99,15 +105,6 @@ def TDEE(type_act_key, bmr_value, activity_dict):
     
 
       
-year,wg,h,gre,name=data()
-bmr_value=bmr(year,wg,h,gre)
-write(bmr_value,gre,name)
-
-type_act_index,activity_dict=activity_level()
-keys = list(activity_dict.keys())
-type_act_key = keys[type_act_index - 1]
-
-tdee_value = TDEE(type_act_key, bmr_value, activity_dict)
 
 
 
