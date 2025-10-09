@@ -24,7 +24,14 @@ def TDEE(key,worth,lazy):
     return result
 
 
-    
+def prote(weigh):
+    rule_prote=2.2
+    gr_p=round(rule_prote*weigh)
+    cal_p_=4
+    calories_p=gr_p*cal_p_
+    print(f"Your protein in gr :{gr_p} ")
+    print(f'Calories Protein : {calories_p}')
+    return gr_p,calories_p
     
     
     
