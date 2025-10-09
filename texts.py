@@ -22,3 +22,18 @@ def basic_info():
                 if confirm=="yes":
                     return year,wg,h,gre,name
             
+            
+def activity_level():
+    activity={
+        "sedentary": 1.2,
+        "light": 1.375,
+        "moderate": 1.55,
+        "very": 1.725,
+        "extra": 1.9
+    }
+    for i,each in enumerate(activity.keys(),start=1):
+        print(f'-{i} {each}')
+
+    type_act=int(input("What type of activty you are? (SELECT A NUMBER ) :"))
+    return type_act,activity
+            

@@ -12,3 +12,13 @@ def bmr(weight,height,group,birth):
 
     print(f"\nYour BMR is: {value:.2f} kcal/day")
     return value
+
+
+def TDEE(key,worth,lazy):
+    key_list=list(lazy.keys())
+    worth=float(worth)
+    choosen_key=key_list[key-1]
+    multiply = lazy[choosen_key]
+    result=worth*multiply
+    print(f'Your TDEE : {result:.0f}')
+    return result

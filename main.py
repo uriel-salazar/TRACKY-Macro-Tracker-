@@ -1,15 +1,16 @@
-import pandas as pd 
-from texts import basic_info
-from control import bmr
-from saving_data import begin_data
+
+from texts import activity_level
+from control import TDEE
+
+
+from wrap_it_up import info_and_bmr
 
 def main():
-    year,wg,h,gre,name=basic_info()
-    value_bmr=bmr(wg,h,gre,year)
-    print(f'Your BMR : {value_bmr}')
-    saving=begin_data(name,value_bmr,gre)
+    value_bmr=info_and_bmr() #This is going to calculate the basic info and the bmr of the user()
+    type_act,activity = activity_level()
+    show_tdee=TDEE(type_act,value_bmr,activity)
     
-
+    
 
 if __name__ == "__main__":
     main()
