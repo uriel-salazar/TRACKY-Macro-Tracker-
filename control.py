@@ -22,3 +22,9 @@ def TDEE(key,worth,lazy):
     result=worth*multiply
     print(f'Your TDEE : {result:.0f}')
     return result
+
+
+    
+    
+    
+    

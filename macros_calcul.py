@@ -80,33 +80,33 @@ def carb(cal,cal_fat,cal_prote):
 
             
 
-total_cal=calories(tdee_value)
+#total_cal=calories(tdee_value)
 
-prote_cals,prote_grams=prote(wg)
+#prote_cals,prote_grams=prote(wg)
 
-fat_cals,fat_grams=((fats(total_cal)))
-grams = carb(total_cal, fat_cals, prote_cals)
+#fat_cals,fat_grams=((fats(total_cal)))
+#grams = carb(total_cal, fat_cals, prote_cals)
 
 
 #### saving data 
-def save_data():
-    macros={
-    "Name":[name],
-    "Fat":[fat_grams],
-    "Protein":[prote_grams],
-    "Carbs":[grams]
+#def save_data():
+   # macros={
+  #  "Name":[name],
+#    "Fat":[fat_grams],
+ #  "Protein":[prote_grams],
+ #   "Carbs":[grams]
     
-              }
-    macro_save=pd.DataFrame(macros)
-    print(macro_save)
+    
+ #   macro_save=pd.DataFrame(macros)
+  #  print(macro_save)
   
-    file_macros="data_macros.csv"
-    if not os.path.exists(file_macros):
-       macro_save.to_csv(file_macros,index=False,header=True)
-    else:
-      macro_save.to_csv(file_macros,mode='a',header=False,index=False)
+  #  file_macros="data_macros.csv"
+  #  if not os.path.exists(file_macros):
+  #     macro_save.to_csv(file_macros,index=False,header=True)
+  #  else:
+  #   macro_save.to_csv(file_macros,mode='a',header=False,index=False)
       
-save_data()
+#save_data()
 
 
 

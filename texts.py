@@ -36,4 +36,27 @@ def activity_level():
 
     type_act=int(input("What type of activty you are? (SELECT A NUMBER ) :"))
     return type_act,activity
-            
+
+
+def option_goal():
+    print("Choose an option :")
+    print("1. Volumen\n2. Cutting")
+    return int(input("What are you going to choose?: "))
+
+
+def type_bulking():
+    print("""
+                1. Agressive bulking 
+                2. Normal bulking """)
+    return int(input("What type of bulking are you looking for ?:"))
+    
+    
+def type_cutting():
+    print("""
+          1. Aggressive bulking 
+          2. Normal bulking """)
+    return int(input("What type of cutting are you going to do??"))
+    
+    
+    
+      
