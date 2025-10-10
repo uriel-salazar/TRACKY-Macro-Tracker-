@@ -38,5 +38,3 @@ def decision(show_tdee):
     return cal
 
 
-        
-
