@@ -1,12 +1,11 @@
 from texts import basic_info,option_goal,type_bulking,type_cutting
-from saving_data import begin_data
-from control import bmr,prote
+from saving_data import begin_data,save_macro
+from control import bmr,prote,fat,carb,TDEE
 
 
 def info_and_bmr():
     year,wg,h,gre,name=basic_info()
     value_bmr=bmr(wg,h,gre,year)
-    print(f'Your BMR : {value_bmr}')
     begin_data(name,value_bmr,gre)
     return value_bmr,wg,name
   
@@ -37,3 +36,9 @@ def decision(show_tdee):
     return cal
 
 
+def set_macro(wg,name,show_tdee):
+    user_decision=decision(show_tdee)
+    prote_cal,prote_grams=prote(wg) #Returning protein 
+    calories_fats,fats_gr=fat(user_decision)
+    carb_grams,carb_calories=carb(user_decision,calories_fats,prote_cal)
+    save_macro(name,fats_gr,prote_grams,carb_grams)

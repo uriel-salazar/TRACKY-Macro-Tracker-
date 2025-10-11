@@ -29,9 +29,9 @@ def begin_data(nickname,rate,gen):
 
 def save_macro(name,fat_gram,prote_grams,carb_grams):
     name=str(name)
-    fat_gram=float(fat_gram)
-    prote_grams=float(prote_grams)
-    carb_grams=float(carb_grams)
+    fat_gram=int(fat_gram)
+    prote_grams=int(prote_grams)
+    carb_grams=int(carb_grams)
     macros={
      "Name":[name],
       "Fat":[fat_gram],
@@ -40,6 +40,7 @@ def save_macro(name,fat_gram,prote_grams,carb_grams):
     }
     
     macro_save=pd.DataFrame(macros)
+    print("Your macros in gr:")
     print(macro_save)
   
     file_macro="data_macros.csv"

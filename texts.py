@@ -66,10 +66,9 @@ def type_bulking():
     
 def type_cutting():
     print("""
-          1. Aggressive bulking 
-          2. Normal bulking """)
+          1. Aggressive cutting
+          2. Normal cutting """)
     return int(input("What type of cutting are you going to do??"))
     
     
     
-      
