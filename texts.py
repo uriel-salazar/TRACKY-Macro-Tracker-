@@ -1,4 +1,5 @@
 import os 
+from validation import block,fun_m
 
 
 def clear_console():
@@ -12,10 +13,10 @@ def clear_console():
 def basic_info():
         while True:
                 print("-- Setting up your calories ---")
-                year=int(input("How old are you?? :"))
-                wg=float(input("what is your weigh??: "))
+                year=fun_m("How old are you?? :",13,130)
+                wg=block("what is your weigh??: ",20,200)
                 gre=input("Are you a women or men ? (woman/man)").upper()
-                h=float(input(("What is your heigh??")))
+                h=block("What is your heigh??",10,300)
                 name=input("What is your name?? (STRING) : ")
     
                 
@@ -47,28 +48,30 @@ def activity_level():
     for i,each in enumerate(activity.keys(),start=1):
         print(f'-{i} {each}')
 
-    type_act=int(input("What type of activty you are? (SELECT A NUMBER ) :"))
+    type_act=block("What type of activty you are? (SELECT A NUMBER ) :",0,5)
     return type_act,activity
 
 
 def option_goal():
     print("Choose an option :")
     print("1. Volumen\n2. Cutting")
-    return int(input("What are you going to choose?: "))
+    return block("What are you going to choose?:",0,2)
 
 
 def type_bulking():
     print("""
                 1. Agressive bulking 
                 2. Normal bulking """)
-    return int(input("What type of bulking are you looking for ?:"))
+    return block("What type of bulking are you looking for ?:",1,2)
     
     
 def type_cutting():
     print("""
           1. Aggressive cutting
           2. Normal cutting """)
-    return int(input("What type of cutting are you going to do??"))
+    return block("What type of cutting are you going to do??",1,2)
+
+
     
     
     
