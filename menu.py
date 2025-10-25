@@ -3,7 +3,8 @@ from wrap_up import info_and_bmr
 from control import TDEE
 from wrap_up import info_and_bmr,set_macros
 from open_food.wrap_api import calling
-
+from meals_logic.control_meal import method_track
+from open_food.actual_macros import remaining
 def menu_user():
     """ Prints a menu that shows the available options to the user
     """
@@ -11,11 +12,12 @@ def menu_user():
     while True:
         print(" --- Macro Tracker --- ")
         print("1.Calculate your BMR : ")
-        print(" 2 .Calculate your TDEE based on your activity")
-        print("3. Search an ingredient ")
-        choice=int(input("Choice a number (1/2/3):"))
+        print(" 2 .Calculate your TDEE ")
+        print("3. Search ingredient ")
+        print("4. Calculate your daily macros (manual/api)")
+        choice=int(input("Choice a number (1/2/3/4):"))
         if choice==1:
-            value_bmr,wg,name=info_and_bmr()
+            value_bmr,wg,name,gre=info_and_bmr()
             completed_info=True
         
         elif choice==2:
@@ -27,6 +29,12 @@ def menu_user():
                 print("First,you must fill your basic information.")
         elif choice==3:
             calling()
+            remaining(gre)
+            
+            
+        elif choice==4:
+            method_track()
+            
         else:
             print("Please,Enter a valid number")
             
