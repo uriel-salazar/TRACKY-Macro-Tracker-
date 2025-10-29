@@ -2,17 +2,17 @@ import pandas as pd
 
 
 
-def remaining():
+def fetch_user_macros():
     user_data = pd.read_csv("data_macros.csv")
       
 
     print("Your macros in gr:")
-    print(user_data.iloc[0].to_string(index=True))
-    name_main=user_data.loc[0,"Name"]
-    fat_main=user_data.loc[0,"Fat"]
-    prote_main=user_data.loc[0,"Protein"]
-    carb_main=user_data.loc[0,"Carbs"]
-    calories_main=user_data.loc[0,"Total Calories"]
+    print(user_data.iloc[-1].to_string(index=True))
+    name_main=user_data.iloc[-1]["Name"]
+    fat_main=user_data.iloc[-1]["Fat"]
+    prote_main=user_data.iloc[-1]["Protein"]
+    carb_main=user_data.iloc[-1]["Carbs"]
+    calories_main=user_data.iloc[-1]["Total Calories"]
     return name_main,fat_main,prote_main,carb_main,calories_main
 
 
@@ -31,9 +31,11 @@ def goal_user(name, fat_goal, prote_goal, carb_goal, cal_goal,
     full_cal=cal_goal-cal_u
     full_carb=carb_goal-carb_u
     full_prote=prote_goal-prote_u
-    print(f"CAL:{full_cal}")
+    full_fats=fat_goal-fat_u
+    print(f"CALORIES:{full_cal}")
     print(f" CARBS :  {full_carb}")
     print(f"PROTE : {full_prote}")
+    print(f" FATS : {full_fats}")
    
     
     
