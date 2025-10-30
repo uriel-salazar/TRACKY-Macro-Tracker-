@@ -1,6 +1,7 @@
 from open_food.spoon import cal_api,search,portion,calculate_gr
 from open_food.show_ingr import product_macro,csv_meal,food_added,total_macros
 from open_food.actual_macros import fetch_user_macros,goal_user
+from meals_logic.control_meal import goal_macro,remain
 
 def calling():
     url = cal_api()
@@ -21,9 +22,14 @@ def calling():
     return total_cal, total_prote, total_carb, total_fat
 
 def show_food():
-    see=food_added()
+    see=food_added() #
     food_cal,food_prote,food_carb,food_fat=total_macros(see)
     name_main,fat_main,prote_main,carb_main,calories_main=fetch_user_macros()
-    goal_user(name_main, fat_main, prote_main, carb_main, calories_main,
+  #  goal_user(name_main, fat_main, prote_main, carb_main, calories_main,
+          #    food_fat,food_prote,food_carb,food_cal)
+    goal,current=goal_macro(fat_main, prote_main, carb_main, calories_main,
               food_fat,food_prote,food_carb,food_cal)
+    remain(goal,current)
     return food_cal,food_prote,food_carb,food_fat
+
+    
