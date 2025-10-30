@@ -1,7 +1,8 @@
 
 import pandas as pd
 import os 
-    
+
+from open_food.wrap_api import fetch_user_macros
 def manual_track():
     """ The user enters their macros in a manual way 
 
@@ -12,7 +13,7 @@ def manual_track():
 
     while True:
         print("--Quick Add---")
-        meal_type = input("What is your meal? : ")
+        meal_type = input("Type of Meal : ").upper()
         name_food = input("Description: ")
         cal_food = int(input("Energy (cal): ")) 
         prote_food = int(input("Protein (g): "))
@@ -29,16 +30,19 @@ def manual_track():
             "Fats": fat_food
             }
             print("Your info :")
+            print("-----")
             for meal_type, info in control_meal["meals"].items():
                 print(f"{meal_type}")
                 print(f"Cal :{info["Calories"]}")
                 print(f"Protein :{ info["Protein"]}")
-                
+                print(f"Carb:{info["Carbs"]}")
+                print(f"Fats : {info["Fats"]}")
+        elif save_it.lower()!="yes":
+            break
         repeat = input("Do you want to add another meal? (yes/no): ")
         if repeat.lower() != "yes":
             break  
-        else:
-            continue
+        
     return control_meal
     
     
@@ -52,6 +56,7 @@ def method_track():
     """
     meals={}
     while True:
+        print("--- Tracking your macros manually ---")
         print("1.Enter your food manually")
         print("2. Check you food registered food ")
         print("3.Check your total macros  ")
@@ -65,7 +70,11 @@ def method_track():
             else:
                 print(" ⚠️ First you have to track your food ⚠️")
         elif option == 3:
-            calculate() 
+            dat_cal,dat_prote,dat_carb,dat_fats=calculate()
+            name_main,fat_main,prote_main,carb_main,calories_main=fetch_user_macros()
+            goal,current=goal_macro(fat_main,prote_main,carb_main,calories_main,
+                       dat_fats,dat_prote,dat_carb,dat_cal)
+            remain(goal,current)
         elif option == 4:
             print("Goodbye!")
             break
@@ -82,7 +91,7 @@ def track_macro_all(control_meal):
     """ Saves a csv file according with user's macros
 
     Args:
-        control_meal (_type_): _description_
+        control_meal (dict): _description_
 
     Returns:
         DataFrame: User's macros file
@@ -110,24 +119,86 @@ def track_macro_all(control_meal):
     return number_save
 
 def calculate():
-    """ Adds the user's macros
+    """ Adds user's macros
 
     Returns:
         int: Total Macros 
     """
     read_macros=pd.read_csv("manually_macros.csv")
-    dat_cal=read_macros["Calories"].sum()
+    read_macros.columns = read_macros.columns.str.strip() 
+    dat_cal=read_macros['Calories'].sum()
     dat_prote=read_macros["Protein"].sum()
     dat_carb=read_macros["Carbs"].sum()
     dat_fats=read_macros["Fats"].sum()
     
-    print(dat_cal,"calories")
+    print(dat_cal,"Calories")
     print("Protein :",dat_prote,"gr")
-    print(f'Carbs :{dat_carb} gr')
+    print(f'Carbs :{dat_carb} gr')  ##
     print(f'Fats : {dat_fats} gr')
     return dat_cal,dat_prote,dat_carb,dat_fats
     
 
+def food_added():
+    """Reads meals searched on food_data.csv
+    The user can decide whether conserve them or not 
+    """
+    print("--- Just added 🔥 ---")
+    show=pd.read_csv("manually_macros.csv")
+    print(show)
+    conserve=input("Are you going to conserve this food? (yes/no)")
+    if conserve=="yes":
+        pass
+    else:
+    
+        print("Foods eliminated !")  
+        os.remove("manually_macros.csv")
+    return show
 
 
+    
+def goal_macro(fat_goal, prote_goal, carb_goal, cal_goal, 
+               fat_u, prote_u, carb_u, cal_u):
+    """Shows the user their remaining calories"""
 
+    # Convert all to integers
+    fat_goal = int(fat_goal)
+    prote_goal = int(prote_goal)
+    carb_goal = int(carb_goal)
+    cal_goal = int(cal_goal)
+    fat_u = int(fat_u)
+    prote_u = int(prote_u)
+    carb_u = int(carb_u)
+    cal_u = int(cal_u)
+
+    goal = {
+        "cal": cal_goal,
+        "carb": carb_goal,
+        "prote": prote_goal,
+        "fat": fat_goal
+    }
+
+    current = {
+        "cal": cal_u,
+        "carb": carb_u,
+        "prote": prote_u,
+        "fat": fat_u
+    }
+
+    return goal, current
+
+
+def remain(goals, current):
+    remaining_user = {}
+    print(" ---Macro summary ---")
+    
+    # Loop through each key (carb, prote, etc.)
+    for key in goals:
+        diff = goals[key] - current.get(key, 0)
+        remaining_user[key] = diff
+
+        if diff < 0:
+            print(f"{key.upper()}: Over by {-diff}")
+        else:
+            print(f"{key.upper()}: Remaining {diff}")
+
+    return remaining_user
