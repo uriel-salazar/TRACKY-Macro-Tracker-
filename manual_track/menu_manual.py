@@ -1,6 +1,6 @@
 from api_food.wrap_api import fetch_user_macros
 from manual_track.manual_functions import track,save_meal,calculate_macros,dict_macro,remain
-from validation import verify
+from calculating_macros.verify.verify_input import verify
  
 def manually_track():
     """ Shows a menu for track your macros 

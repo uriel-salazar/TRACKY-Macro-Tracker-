@@ -1,6 +1,6 @@
 import os 
 import pandas as pd
-from validation import get_letters,valid_word,verify
+from calculating_macros.verify.verify_input import get_letters,valid_word,check_float
 def track():
     """ Enter your macros in a manual way 
 
@@ -13,10 +13,10 @@ def track():
         print("--- Quick Add ✏️ ---")
         meal_type = get_letters("Type of Meal : ").upper()
         name_food = get_letters(" Meal Description  : ").lower()
-        cal_food = verify("Energy (cal): ",minim=1,maxim=10000)
-        prote_food = verify("Protein (g): ",minim=1,maxim=1000)
-        carb_food = verify("Carb (g): ",minim=1,maxim=1000)
-        fat_food = verify("Enter your fat value 🥑 (g): ",minim=1,maxim=500)
+        cal_food = check_float("Energy (cal): ",minim=1.0,maxim=10000.0)
+        prote_food = check_float("Protein (g): ",minim=1.0,maxim=1000.0)
+        carb_food = check_float("Carb (g): ",minim=1.0,maxim=1000.0)
+        fat_food = check_float("Enter your fat value 🥑 (g): ",minim=1.0,maxim=700.0)
         save_it = valid_word("Save it? (yes/no): ",["yes","no"]).lower()
 
         if save_it.lower() == "yes":
@@ -112,7 +112,7 @@ def food_added():
     return show
 
 def dict_macro(fat_goal, prote_goal, carb_goal, cal_goal, 
-               fat_u:int, prote_u:int,carb_u:int, cal_u:int):
+               fat_u, prote_u,carb_u, cal_u):
     """
     Organize and format macro and calorie goals along with current intake values.
 
@@ -132,6 +132,11 @@ def dict_macro(fat_goal, prote_goal, carb_goal, cal_goal,
             - dict: Dictionary containing macro and calorie goals.
             - dict: Dictionary containing current macro and calorie values.
     """
+    
+    fat_u=int(fat_u)
+    prote_u=int(prote_u)
+    carb_u=int(carb_u)
+    cal_u=int(cal_u)
     goal = {
         "cal": cal_goal,
         "carb": carb_goal,
@@ -150,7 +155,7 @@ def dict_macro(fat_goal, prote_goal, carb_goal, cal_goal,
 
 
 def remain(goals, current):
-    """ Does a loop for showing the remaining calories 
+    """ Loops for showing the remaining calories 
 
     Args:
         goals (dict):Dictionary containing macro and calorie goals.
